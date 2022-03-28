@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userprofile
+  labels:
+    app: userprofile
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: userprofile
+  template:
+    metadata:
+      labels:
+        app: userprofile
+    spec:
+      containers:
+        - name: userprofile
+          image: registryjzg0978.azurecr.io/userprofile:v1
+          ports:
+            - containerPort: 80
+          env:
+            - name: SQL_USER
+              value: sqladminjZg0978
+            - name: SQL_PASSWORD
+              value: P@ssword123
+            - name: SQL_SERVER
+              value: sqlserverjzg0978.database.windows.net
+            - name: SQL_DBNAME
+              value: mydrivingDB
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userprofile
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+  selector:
+    app: userprofile
