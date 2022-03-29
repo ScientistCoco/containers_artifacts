@@ -23,23 +23,23 @@ spec:
             - name: SQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: mysecret
+                  name: secrets
                   key: username
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysecret
+                  name: secrets
                   key: password
             - name: SQL_SERVER
               valueFrom:
                 secretKeyRef:
-                  name: mysecret
-                  key: username            
+                  name: secrets
+                  key: server            
             - name: SQL_DBNAME
               valueFrom:
                 secretKeyRef:
-                  name: mysecret
-                  key: username
+                  name: secrets
+                  key: dbname
 ---
 apiVersion: v1
 kind: Service

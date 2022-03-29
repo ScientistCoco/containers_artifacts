@@ -21,13 +21,25 @@ spec:
             - containerPort: 80
           env:
             - name: SQL_USER
-              value: sqladminjZg0978
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: username
             - name: SQL_PASSWORD
-              value: P@ssword123
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: password
             - name: SQL_SERVER
-              value: sqlserverjzg0978.database.windows.net
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: server            
             - name: SQL_DBNAME
-              value: mydrivingDB
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: dbname
 ---
 apiVersion: v1
 kind: Service

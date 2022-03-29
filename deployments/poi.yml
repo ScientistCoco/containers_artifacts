@@ -19,13 +19,27 @@ spec:
           image: registryjzg0978.azurecr.io/poi:v1
           ports:
             - containerPort: 80
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: 250m
-              memory: 256Mi
+          env:
+            - name: SQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: username
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: password
+            - name: SQL_SERVER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: server            
+            - name: SQL_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: dbname
 ---
 apiVersion: v1
 kind: Service
