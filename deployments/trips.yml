@@ -18,33 +18,12 @@ spec:
       containers:
         - name: trips
           image: registryjzg0978.azurecr.io/trips:v1
+          volumeMounts:
+            - name: secrets-store01-inline 
+              mountPath: "/secrets"
+              readOnly: true
           ports:
             - containerPort: 80
-          volumeMounts:
-          - name: secrets-store01-inline
-            mountPath: "/mnt/secrets-store"
-            readOnly: true       
-          env:
-            - name: SQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: azure-kvname-user-msi
-                  key: username
-            - name: SQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: azure-kvname-user-msi
-                  key: password
-            - name: SQL_SERVER
-              valueFrom:
-                secretKeyRef:
-                  name: azure-kvname-user-msi
-                  key: server            
-            - name: SQL_DBNAME
-              valueFrom:
-                secretKeyRef:
-                  name: azure-kvname-user-msi
-                  key: dbname
       volumes:
         - name: secrets-store01-inline
           csi:
